@@ -8,11 +8,7 @@ Instructor : Mehdi Peiravi
 
 Team Members:
 
-Ferah Yilmaz
-
-Matthew Dalby
-
-David Devore 
+Ferah Yilmaz, Matthew Dalby, David Devore 
 
 Description of the project:
 
