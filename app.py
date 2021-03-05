@@ -3,15 +3,18 @@ from flask_sqlalchemy import SQLAlchemy
 import templates
 
 app = Flask(__name__)
-#app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///C:/Users/Tuse/Formatty---File-Converter-/database_files/filestorage.sqlite3'
+
+#Database Formatting
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///filestorage.sqlite3'
 db = SQLAlchemy(app)
 
 class FileContents(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(300))
-    #data = db.Column(db.LargeBinary)
-    
+    data = db.Column(db.LargeBinary)
+
+#All Flask APP routes
 @app.route("/")
 def home():
     return render_template('home.html')
@@ -20,14 +23,9 @@ def home():
 def upload():
     file = request.files['file']
 
-    newFile = FileContents(name=file.filename)
-    #, data=file.read())
+    newFile = FileContents(name=file.filename, data=file.read())
+    #db.add_file(newFile)
     db.session.add(newFile)
     db.session.commit()
 
     return 'Saved ' + file.filename + ' to the database'
-
-
-if __name__ == "__main__":
-    db.drop_all
-    db.create_all
