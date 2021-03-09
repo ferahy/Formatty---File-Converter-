@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block upload %}
+<header>
+  <h1 style="color:orange; text-align:center">
+    FORMATTY
+  </h1>
+</header>
+<p style="color:orange; text-align:center">
+    Upload any file:
+
+  <form style="text-align:center"action="/action_page.php">
+    <input style="color:orange" type="file" id="myfile" name="filename">
+    <input type = "submit" value="Submit">
+  </form>
+</p>
+
+{% endblock %}
