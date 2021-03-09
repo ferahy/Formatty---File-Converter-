@@ -8,20 +8,15 @@
 
 <body style="background-color: dimgrey">
 
+  <div> Formatty: <a href="/">Home</a>
+      <a href="/login">Login</a>
+      <a href="/upload">Upload</a>
+      <a href="/files">Files</a>
 
-<header>
-  <h1 style="color:orange; text-align:center">
-    FORMATTY
-  </h1>
-</header>
-<p style="color:orange; text-align:center">
-    Upload any file:
+  <hr>
+  {% block upload %}{% endblock %}
 
-  <form style="text-align:center"action="/action_page.php">
-    <input style="color:orange" type="file" id="myfile" name="filename">
-    <input type = "submit" value="Submit">
-  </form>
-</p>
+
 
 </body>
 </html>
