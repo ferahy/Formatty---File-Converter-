@@ -1,6 +1,7 @@
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, flash, redirect
 from flask_sqlalchemy import SQLAlchemy
 import templates
+from app.forms import LoginForm
 
 app = Flask(__name__)
 
