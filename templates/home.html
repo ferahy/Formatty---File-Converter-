@@ -10,7 +10,22 @@
 </html>
 
 <head>
-  <title>Flask test app</title>
+  <title>Formatty</title>
+  <style>
+  h1{
+    color: orange;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+  }
+  p{
+    color:orange;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+
+  }
+  </style>
 
 </head>
 
@@ -18,16 +33,16 @@
 
 
 <header>
-  <h1 style="color:orange; text-align:center">
+  <h1 >
     FORMATTY
   </h1>
 </header>
-<p style="color:orange; text-align:center">
+<p>
     Upload any file:
 
   <form style="text-align:center"action="/upload" method="POST" enctype="multipart/form-data">
     <input type="file" name="inputFile" />
-    <input type="submit" />    
+    <input type="submit" />
   </form>
 </p>
 
