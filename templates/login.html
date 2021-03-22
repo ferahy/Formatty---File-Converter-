@@ -1,31 +1,18 @@
-{% extends "home.html" %}
-
-{% block content %}
-
+<!DOCTYPE html>
+<html>
   <h1>Log in</h1>
-  <form action="" method="post" novalidate>
-    {{form.hidden_tag()}}
-    <p>
-      {{ form.username.label }}<br>
-      {{ form.username(size=32) }}
-      {% for error in form.username.errors %}
-      <span style="color: red;">[{{ error }}]</span>
-      {% endfor %}
-    </p>
-    <p>
-      {{ form.password.label }}<br>
-      {{ form.password(size=32) }}
-      {% for error in form.password.errors %}
-      <span style="color: red;">[{{ error }}]</span>
-      {% endfor %}
-    </p>
-    <p>
-      {{form.remeber_me()}}{{form.remember_me.label}}
-    </p>
-    <p>
-      {{form.submit()}}
-    </p>
+  <form>
+    <label for="username">Username:</label><br>
+    <input type="text" id="username" name="username"><br>
+
+    <label for="password">Password:</label><br>
+    <input type="text" id="password" name="password"><br>
+
+    <input type="radio" id="remember" name="remember" value="Remember Me">
+    <label for="remember">Remember Me</label><br>
+
+     <input type="submit" value="Submit">
+     
   </form>
 
-
-{% endblock %}
+</html>
