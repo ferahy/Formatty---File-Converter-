@@ -45,4 +45,4 @@ def upload():
 @app.route('/download/<int:file_id>')
 def download(file_id):
     file_data = FileContents.query.filter_by(id=file_id).first()
-    return send_file(BytesIO(file_data.data), attachment_filename = 'test2.pdf', as_attachment=True)
+    return send_file(BytesIO(file_data.data), attachment_filename = file_data.name, as_attachment=True)
