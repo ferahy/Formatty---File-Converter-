@@ -4,7 +4,13 @@
 <title>All database Files</title>
 </head>
 
-<body>
+<style>
+body {
+  background-image: url({{ url_for('static', filename='background.gif') }});
+  background-size: 100% 100%;
+}
+</style>
+<body >
   {% for data in data %}
   <li>{{data.id}} - {{data.name}}</li>
   {% endfor %}
