@@ -16,9 +16,9 @@ class FileContents(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(300))
     data = db.Column(db.LargeBinary)
-    data_pdf = db.Column(db.LargeBinary)
-    data_png = db.Column(db.LargeBinary)
-    data_jpg = db.Column(db.LargeBinary)
+    #data_pdf = db.Column(db.LargeBinary)
+    #data_png = db.Column(db.LargeBinary)
+    #data_jpg = db.Column(db.LargeBinary)
 
 #All Flask APP routes
 @app.route("/")
