@@ -40,10 +40,10 @@ def upload():
     file = request.files['inputFile']
 
     #Checks if the file format is acceptabe
-    VALID_FORMATS = {"pdf", "png", "doc"}
+    VALID_FORMATS = {"pdf", "png", "docx"}
     valid = 0
     for valid_format in VALID_FORMATS:
-        if (file.filename)[-3:] == valid_format:
+        if (file.filename)[-len(valid_format):] == valid_format:
             valid = 1
     if valid == 0:
         return "Error: Wrong Format."
@@ -60,9 +60,6 @@ def upload():
 @app.route('/download/<string:file_type>/<int:file_id>')
 def download(file_type, file_id):
     file_data = FileContents.query.filter_by(id=file_id).first()
-
-
-
     return send_file(BytesIO(file_data.data), attachment_filename = file_data.name, as_attachment=True)
     
 
