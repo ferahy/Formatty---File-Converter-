@@ -63,9 +63,12 @@
 
 
 <body >
-  {% for data in data %}
-  <li>{{data.id}} - {{data.name}}</li>
-  {% endfor %}
+  <li> {{name}} - {{file_id}} - download </li>
+ 
+  <li> <a href="/download/pdf/{{file_id}}">Download pdf</a></li>
+  <li> <a href="/download/png/{{file_id}}">Download png</a></li>
+  <li> <a href="/download/doc/{{file_id}}">Download doc</a></li>
+
 </body>
 
 </html>
