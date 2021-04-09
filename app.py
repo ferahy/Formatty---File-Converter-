@@ -16,9 +16,9 @@ class FileContents(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(300))
     data = db.Column(db.LargeBinary)
-    #data_pdf = db.Column(db.LargeBinary)
-    #data_png = db.Column(db.LargeBinary)
-    #data_jpg = db.Column(db.LargeBinary)
+    data_pdf = db.Column(db.LargeBinary)
+    data_png = db.Column(db.LargeBinary)
+    data_docx = db.Column(db.LargeBinary)
 
 #All Flask APP routes
 @app.route("/")
@@ -31,6 +31,8 @@ def login():
 
 @app.route("/file_list")
 def file_list():
+
+    #
     database = FileContents.query.all()
     return render_template('file_list.html', data = database)
 
@@ -44,22 +46,37 @@ def upload():
     valid = 0
     for valid_format in VALID_FORMATS:
         if (file.filename)[-len(valid_format):] == valid_format:
+            newFile = FileContents(name=file.filename[:-len(valid_format)-1], data=file.read())
             valid = 1
+            break
     if valid == 0:
         return "Error: Wrong Format."
     
-    newFile = FileContents(name=file.filename, data=file.read())
+    #newFile = FileContents(name=file.filename, data=file.read())
+    
+    #TODO: Implement convert logic
+    newFile.data_pdf = file.read()
+    newFile.data_png = file.read()
+    newFile.data_docx = file.read()
+    
     db.session.add(newFile)
     db.session.commit()
     
     
     return render_template('download.html', name = newFile.name, file_id = newFile.id)
-    #return 'Saved' + file.filename + ' to the database'
-    
+   
 
 @app.route('/download/<string:file_type>/<int:file_id>')
 def download(file_type, file_id):
     file_data = FileContents.query.filter_by(id=file_id).first()
-    return send_file(BytesIO(file_data.data), attachment_filename = file_data.name, as_attachment=True)
-    
 
+    if file_type == "pdf":
+        format_data = file_data.data_pdf
+    elif file_type == "png":
+        format_data = file_data.data_png
+    elif file_type == "docx":
+        format_data = file_data.data_png
+    
+    converted_filename = file_data.name + "." + file_type
+
+    return send_file(BytesIO(format_data), attachment_filename = converted_filename, as_attachment=True)
