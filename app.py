@@ -31,8 +31,6 @@ def login():
 
 @app.route("/file_list")
 def file_list():
-
-    #
     database = FileContents.query.all()
     return render_template('file_list.html', data = database)
 
@@ -51,23 +49,41 @@ def upload():
             break
     if valid == 0:
         return "Error: Wrong Format."
-    
-    #newFile = FileContents(name=file.filename, data=file.read())
+
     
     #TODO: Implement convert logic
-    newFile.data_pdf = file.read()
-    newFile.data_png = file.read()
-    newFile.data_docx = file.read()
+    newFile.data_pdf = newFile.data
+    newFile.data_png = newFile.data
+    newFile.data_docx = newFile.data
     
     db.session.add(newFile)
     db.session.commit()
     
-    
-    return render_template('download.html', name = newFile.name, file_id = newFile.id)
+    return redirect('/download/' + str(newFile.id))
    
 
+@app.route('/download')
+def download(): 
+    return render_template('download_main.html')
+
+@app.route('/download1', methods = ['POST'])
+def download1():
+    input_id = request.form['input_id']
+    return redirect('/download/' + str(input_id))
+
+@app.route('/download/<int:file_id>')
+def download_main_page(file_id):
+    #This page should have all 3 boxes for "download pdf" , "download png"
+    # "download docx", and a "Copy link box, that when clicked, will copy
+    #The url to the clipboard
+    file_data = FileContents.query.filter_by(id=file_id).first()
+    if file_data == None:
+            return "Error there is no file with that ID"
+            
+    return render_template('download.html', name = file_data.name, file_id = file_id)
+
 @app.route('/download/<string:file_type>/<int:file_id>')
-def download(file_type, file_id):
+def download_file(file_type, file_id):
     file_data = FileContents.query.filter_by(id=file_id).first()
 
     if file_type == "pdf":
