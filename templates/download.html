@@ -1,14 +1,13 @@
 <html>
 
 <head>
-<title>All Files</title>
+<title>Download File</title>
 </head>
 
 
 <ul>
  <li><a href="/">Home</a></li>
  <li><a href="/login">Login</a></li>
- <li><a href="/file_list">File List</a></li>
  <li><a href="/download">Download</a></li>
   <li style="float:right"><a class="active" href="#about">About</a></li>
 </ul>
@@ -59,16 +58,37 @@
     background-image: url({{ url_for('static', filename='background.gif') }});
     background-size: 100% 100%;
   }
+  table{
+    width: 50%;
+  }
+  th{
+    border-bottom-style: dashed;
+  }
+  td {
+    text-align: center;
+    border-right-style: dashed;
+    border-bottom-style: dashed;
+  }
 </style>
 
+<table>
+<tr>
+  <th>File Name</th>
+  <th>PDF</th>
+  <th>PNG</th>
+  <th>Doc</th>
+  <th>Link</th>
+</tr>
+<tr>
+  <td>{{name}}</td>
+  <td><a href="/download/pdf/{{file_id}}">PDF</a></li></td>
+  <td><a href="/download/png/{{file_id}}">PNG</a></td>
+  <td><a href="/download/docx/{{file_id}}">DOC</a></td>
+  <td>http://localhost:5000/download/{{file_id}}</a>
 
-<body >
-  <li> {{name}} - {{file_id}} - download </li>
- 
-  <li> <a href="/download/pdf/{{file_id}}">Download pdf</a></li>
-  <li> <a href="/download/png/{{file_id}}">Download png</a></li>
-  <li> <a href="/download/docx/{{file_id}}">Download docx</a></li>
+</tr>
 
-</body>
+</table>
+
 
 </html>

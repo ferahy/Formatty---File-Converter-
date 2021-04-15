@@ -8,7 +8,6 @@
 <ul>
  <li><a href="/">Home</a></li>
  <li><a href="/login">Login</a></li>
- <li><a href="/file_list">File List</a></li>
  <li><a href="/download">Download</a></li>
   <li style="float:right"><a class="active" href="#about">About</a></li>
 </ul>
@@ -58,6 +57,10 @@
   body {
     background-image: url({{ url_for('static', filename='background.gif') }});
     background-size: 100% 100%;
+    text-align: center;
+
+  }
+  {
   }
 </style>
 
@@ -65,7 +68,7 @@
 
 
 <body>
-  
+
 
  Enter File ID:
 

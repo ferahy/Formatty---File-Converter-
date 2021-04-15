@@ -29,12 +29,6 @@ def home():
 def login():
     return render_template('login.html')
 
-@app.route("/file_list")
-def file_list():
-    database = FileContents.query.all()
-    return render_template('file_list.html', data = database)
-
-   
 @app.route('/upload', methods=['POST'])
 def upload():
     file = request.files['inputFile']
@@ -50,20 +44,20 @@ def upload():
     if valid == 0:
         return "Error: Wrong Format."
 
-    
+
     #TODO: Implement convert logic
     newFile.data_pdf = newFile.data
     newFile.data_png = newFile.data
     newFile.data_docx = newFile.data
-    
+
     db.session.add(newFile)
     db.session.commit()
-    
+
     return redirect('/download/' + str(newFile.id))
-   
+
 
 @app.route('/download')
-def download(): 
+def download():
     return render_template('download_main.html')
 
 @app.route('/download1', methods = ['POST'])
@@ -79,7 +73,7 @@ def download_main_page(file_id):
     file_data = FileContents.query.filter_by(id=file_id).first()
     if file_data == None:
             return "Error there is no file with that ID"
-            
+
     return render_template('download.html', name = file_data.name, file_id = file_id)
 
 @app.route('/download/<string:file_type>/<int:file_id>')
@@ -92,7 +86,7 @@ def download_file(file_type, file_id):
         format_data = file_data.data_png
     elif file_type == "docx":
         format_data = file_data.data_png
-    
+
     converted_filename = file_data.name + "." + file_type
 
     return send_file(BytesIO(format_data), attachment_filename = converted_filename, as_attachment=True)
