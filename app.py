@@ -3,6 +3,14 @@ from flask_sqlalchemy import SQLAlchemy
 import templates
 #from app.forms import LoginForm
 from io import BytesIO
+# docx to pdf
+from docx2pdf import convert
+# png to pdf 
+import img2pdf
+from PIL import Image
+import os
+# pdf to docx 
+from pdf2docx import Converter
 
 
 app = Flask(__name__)
@@ -49,6 +57,22 @@ def upload():
     newFile.data_pdf = newFile.data
     newFile.data_png = newFile.data
     newFile.data_docx = newFile.data
+    #------------convert starts here-----------
+
+    # pdf to docx  
+
+    # docx to pdf
+    if (file.filename)[-len(valid_format):] == 'docx':
+        convert(newFile.data_docx)
+        convert('/download/' + str(newFile.id), '/download/' + str(newFile.id))
+        convert("/download/")
+
+    # png to pdf
+    #image = Image.open(r'newFile.data_png')
+    #image1 = image.convert('RGB')
+    #image1.save(r'/download/'+ str(newFile.id))
+
+    #--------------------------------------------
 
     db.session.add(newFile)
     db.session.commit()
