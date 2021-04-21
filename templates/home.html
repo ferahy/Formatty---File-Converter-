@@ -60,6 +60,24 @@
       background-repeat: no-repeat;
       background-attachment: fixed;
     }
+    table{
+      width: auto;
+    }
+    form{
+      marin: auto;
+    }
+    fieldset {
+      background-color: grey;
+      margin-top: 10px;
+      margin-left: 10px;
+      margin-right: 150%;
+      margin-bot: 10px;
+    }
+
+    input {
+      text-align: right;
+      margin: 5px;
+    }
 
   </style>
 
@@ -67,20 +85,34 @@
 
 <body>
 
+<table>
+  <
+  <tr>
+    <td width= 60% >
+      <header>
+        <h1 >
+          FORMATTY
+        </h1>
 
-<header>
-  <h1 >
-    FORMATTY
-  </h1>
-</header>
-<p>
-    Upload any file:
+        <p> Easily upload any files! </p>
+        <p> After upload get your link to share</p>
+        <p> Download your files in any format!</p>
 
-  <form style="text-align:center"action="/upload" method="POST" enctype="multipart/form-data">
-    <input type="file" name="inputFile" />
-    <input type="submit" />
-  </form>
-</p>
+      </header>
+    </td>
+    <td width= 40%>
+      <p style="text-align: center">
+          Upload any file:
 
+        <form action="/upload" method="POST" enctype="multipart/form-data">
+          <fieldset>
+            <input type="file" name="inputFile" /><br>
+            <input type="submit" />
+          </fieldset>
+        </form>
+      </p>
+    </td>
+  </tr>
+</table>
 </body>
 </html>
