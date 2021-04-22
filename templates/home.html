@@ -5,34 +5,40 @@
     <li><a href="/">Home</a></li>
     <li><a href="/login">Login</a></li>
     <li><a href="/download">Download</a></li>
-     <li style="float:right"><a class="active" href="#about">About</a></li>
+    <li style="float:right"><a class="active" href="/about">About</a></li>
   </ul>
 
 </html>
 
 <head>
-  <title>Formatty</title>
   <style>
-    h1{
-      color: black;
-      display: flex;
-      justify-content: center;
-      text-align: center;
-    }
     p{
       color:black;
       display: flex;
       justify-content: center;
       text-align: center;
-
+      font-family: 'Brush Script MT', cursive;
+      font-size:xx-large;
     }
-    li{
+    header{
+      display: block;
+      text-align: center;
+      justify-content: center;
+      margin-top: 100px;
+      margin-right: 100px;
+      margin-left: 10px;
+    }
+
+    li
+    {
       float: left;
     }
-    a{
+    a
+    {
     display: block;
-    padding: 8px;
+    padding: 10px;
     }
+
     ul{
       list-style-type: none;
       margin: 0;
@@ -54,29 +60,42 @@
     .active {
       background-color: orange;
     }
+
     body {
       background-image: url({{ url_for('static', filename='background.gif') }});
       background-size: 100% 100%;
       background-repeat: no-repeat;
       background-attachment: fixed;
     }
+
     table{
       width: auto;
     }
+
     form{
-      marin: auto;
+      margin: auto;
     }
+
     fieldset {
-      background-color: grey;
+      background-color: rgb(238, 183, 121);
       margin-top: 10px;
-      margin-left: 10px;
+      margin-left: 100px;
       margin-right: 150%;
-      margin-bot: 10px;
     }
 
     input {
-      text-align: right;
+      text-align: left;
       margin: 5px;
+    }
+    button{
+      background-color: #ec8a0a;
+      color: white;
+      padding: 5px 10px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin-left: 90px;
     }
 
   </style>
@@ -86,33 +105,36 @@
 <body>
 
 <table>
-  <
   <tr>
     <td width= 60% >
       <header>
-        <h1 >
-          FORMATTY
-        </h1>
-
+        <img src="static\logo2.png">
         <p> Easily upload any files! </p>
         <p> After upload get your link to share</p>
         <p> Download your files in any format!</p>
-
       </header>
+      
+
     </td>
     <td width= 40%>
       <p style="text-align: center">
-          Upload any file:
+           Upload any file!
 
-        <form action="/upload" method="POST" enctype="multipart/form-data">
+        <form action="/upload" method="POST" enctype="multipart/form-data" >
+
           <fieldset>
             <input type="file" name="inputFile" /><br>
-            <input type="submit" />
+            <button type="submit"> Submit </button>
           </fieldset>
+
         </form>
+
+
       </p>
     </td>
   </tr>
 </table>
+
 </body>
+
 </html>
