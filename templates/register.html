@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+<ul>
+ <li><a href="/">Home</a></li>
+ <li><a href="/login">Login</a></li>
+ <li><a href="/download">Download</a></li>
+ <li style="float:right"><a class="active" href="/about">About</a></li>
+</ul>
+
+<style>
+  h1{
+    color: black;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+  }
+  p{
+    color:orange;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+
+  }
+  li{
+    float: left;
+  }
+  a{
+  display: block;
+  padding: 8px;
+  }
+  ul{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: black;
+  }
+  li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+  }
+
+  li a:hover:not(.active) {
+    background-color: orange;
+  }
+  .active {
+    background-color: orange;
+  }
+  body {
+    background-image: url({{ url_for('static', filename='background.gif') }});
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+  }
+ 
+    input[type=username], input[type=password]{ 
+        width: 30%; 
+        margin: 8px 0;
+        padding: 12px 20px; 
+        display: inline-block; 
+        border: 2px solid orange; 
+        box-sizing: border-box; 
+    }
+    input[type=submit]{
+      background-color: #ec8a0a;
+      color: white;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 19px;
+    }
+
+</style>
+
+  <h1>Sign Up</h1>
+  <form style="text-align:center" action="/register/" method="POST">
+    <input type="username" name="username" placeholder="Username"> <br>
+    <input type="password" name="password" placeholder="Password"> <br>
+    <input type="submit" value="Sign Up">
+  </form>
+
+</html>
