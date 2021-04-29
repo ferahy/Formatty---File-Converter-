@@ -57,21 +57,45 @@
     background-attachment: fixed;
   }
 
+  button{
+      background-color: #ec8a0a;
+      color: white;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 14px;
+    }
+    input[type=text], input[type=password]{ 
+        width: 30%; 
+        margin: 8px 0;
+        padding: 12px 20px; 
+        display: inline-block; 
+        border: 2px solid orange; 
+        box-sizing: border-box; 
+    }
+
 </style>
 
   <h1>Log in</h1>
-  <form style="text-align:center">
+  <form style="text-align:center" action="/login" method="POST">
     <label for="username">Username:</label><br>
-    <input type="text" id="username" name="username"><br>
+    <input type="text" id="username" name="username" placeholder="Username"><br>
 
     <label for="password">Password:</label><br>
-    <input type="text" id="password" name="password"><br>
+    <input type="password" name="password" placeholder="Password"><br>
 
     <input type="radio" id="remember" name="remember" value="Remember Me">
-    <label for="remember">Remember Me</label><br>
+    <label for="remember">Remember Me</label><br><br>
+    
+  </form>
+  
+  <form style="text-align:center">
+    <button type="submit"> Login </button>
+  </form>
+  <pre class="tab"></pre>
 
-     <input type="submit" value="Submit">
-
+  <form style="text-align:center"action="/register">
+    <button type="submit"> Sign Up! </button>
   </form>
 
 </html>
