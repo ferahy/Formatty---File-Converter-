@@ -27,6 +27,16 @@ class FileContents(db.Model):
     data_pdf = db.Column(db.LargeBinary)
     data_png = db.Column(db.LargeBinary)
     data_docx = db.Column(db.LargeBinary)
+    
+class User(db.Model):
+    """ Create user table"""
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(80), unique=True)
+    password = db.Column(db.String(80))
+
+    def __init__(self, username, password):
+        self.username = username
+        self.password = password
 
 #All Flask APP routes
 @app.route("/")
