@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, flash, redirect, send_file
+from flask import Flask, request, render_template, flash, redirect, send_file, url_for, session
 from flask_sqlalchemy import SQLAlchemy
 import templates
 #from app.forms import LoginForm
@@ -33,9 +33,36 @@ class FileContents(db.Model):
 def home():
     return render_template('home.html')
 
-@app.route("/login")
+@app.route('/login/', methods=['GET', 'POST'])
 def login():
-    return render_template('login.html')
+    """Login Form"""
+    if request.method == 'GET':
+        return render_template('login.html')
+    else:
+        name = request.form['username']
+        passw = request.form['password']
+        try:
+            data = User.query.filter_by(username=name, password=passw).first()
+            if data is not None:
+                session['logged_in'] = True
+                return redirect(url_for('home'))
+            else:
+                return 'Cant Login'
+        except:
+            return "Cant Login"
+
+@app.route('/register/', methods=['GET', 'POST'])
+def register():
+    """Register Form"""
+    if request.method == 'POST':
+        new_user = User(
+            username = request.form['username'],
+            password = request.form['password'])
+        db.session.add(new_user)
+        db.session.commit()
+
+        return render_template('login.html')
+    return render_template('register.html')
 
 @app.route("/about")
 def about():
