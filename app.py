@@ -27,18 +27,23 @@ class FileContents(db.Model):
     data_pdf = db.Column(db.LargeBinary)
     data_png = db.Column(db.LargeBinary)
     data_docx = db.Column(db.LargeBinary)
-    
+
 class User(db.Model):
     """ Create user table"""
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(80), unique=True)
-    password = db.Column(db.String(80))
+    username = db.Column(db.String(30), unique=True)
+    password = db.Column(db.String(30))
 
     def __init__(self, username, password):
         self.username = username
         self.password = password
+    
 
 #All Flask APP routes
+@app.before_first_request
+def create_tables():
+    db.create_all()
+
 @app.route("/")
 def home():
     return render_template('home.html')
@@ -55,7 +60,7 @@ def login():
             data = User.query.filter_by(username=name, password=passw).first()
             if data is not None:
                 session['logged_in'] = True
-                return redirect(url_for('home'))
+                return render_template('home.html')
             else:
                 return 'Cant Login'
         except:
@@ -94,6 +99,7 @@ def upload():
         return "Error: Wrong Format."
 
 
+
     #TODO: Implement convert logic
     newFile.data_pdf = newFile.data
     newFile.data_png = newFile.data
@@ -103,10 +109,6 @@ def upload():
     # pdf to docx  
 
     # docx to pdf
-    if (file.filename)[-len(valid_format):] == 'docx':
-        convert(newFile.data_docx)
-        convert('/download/' + str(newFile.id), '/download/' + str(newFile.id))
-        convert("/download/")
 
     # png to pdf
     #image = Image.open(r'newFile.data_png')
@@ -155,3 +157,7 @@ def download_file(file_type, file_id):
     converted_filename = file_data.name + "." + file_type
 
     return send_file(BytesIO(format_data), attachment_filename = converted_filename, as_attachment=True)
+
+if __name__ == '__main__':
+    app.debug = True
+    db.create_all()
