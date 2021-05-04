@@ -56,28 +56,27 @@ def login():
     else:
         name = request.form['username']
         passw = request.form['password']
-        try:
-            data = User.query.filter_by(username=name, password=passw).first()
-            if data is not None:
-                session['logged_in'] = True
-                return render_template('home.html')
-            else:
-                return 'Cant Login'
-        except:
-            return "Cant Login"
+        data = User.query.filter_by(username=name, password=passw).first()
+        if data is not None:
+            session['logged_in'] = True
+            return render_template('home.html')
+        else:
+            return render_template('home.html', message="Incorrect Details")
+        
 
 @app.route('/register/', methods=['GET', 'POST'])
 def register():
     """Register Form"""
     if request.method == 'POST':
-        new_user = User(
-            username = request.form['username'],
-            password = request.form['password'])
-        db.session.add(new_user)
-        db.session.commit()
+        try:
+            db.session.add(User(username=request.form['username'], password=request.form['password']))
+            db.session.commit()
+            return render_template('home.html')
+        except:
+            return render_template('login.html', message="User Already Exists")
+    else:
+        return render_template('register.html')
 
-        return render_template('login.html')
-    return render_template('register.html')
 
 @app.route("/about")
 def about():
