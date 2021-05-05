@@ -87,7 +87,7 @@ def upload():
     file = request.files['inputFile']
 
     #Checks if the file format is acceptabe
-    VALID_FORMATS = {"pdf", "png", "docx"}
+    VALID_FORMATS = {"pdf", "PNG", "docx"}
     valid = 0
     for valid_format in VALID_FORMATS:
         if (file.filename)[-len(valid_format):] == valid_format:
