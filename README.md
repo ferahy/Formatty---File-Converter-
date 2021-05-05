@@ -1,6 +1,6 @@
 # 📄 Formatty "File-Converter" 📄
 
-CPSC 362 Project
+***CPSC 362 Project***
 
 🔴 ***Project:*** Formatty - File Converter 
 
