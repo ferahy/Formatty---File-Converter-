@@ -9,8 +9,14 @@ from docx2pdf import convert
 import img2pdf
 from PIL import Image
 import os
+import sys
 # pdf to docx 
 from pdf2docx import Converter
+
+#Used to PATH formatting
+
+from pdf2image import convert_from_path
+import glob
 
 
 app = Flask(__name__)
@@ -18,6 +24,9 @@ app = Flask(__name__)
 #Database Formatting
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///filestorage.sqlite3'
+UPLOAD_FOLDER = 'tmp'
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['UPLOAD_EXTENSIONS'] = ['.jpg', '.pdf', '.docx']
 db = SQLAlchemy(app)
 
 class FileContents(db.Model):
@@ -85,40 +94,64 @@ def about():
 @app.route('/upload', methods=['POST'])
 def upload():
     file = request.files['inputFile']
-
+    file.save(os.path.join(app.config['UPLOAD_FOLDER'], (file.filename)))
     #Checks if the file format is acceptabe
-    VALID_FORMATS = {"pdf", "PNG", "docx"}
+    VALID_FORMATS = {"pdf", "PNG", "docx", "jpg"}
     valid = 0
     for valid_format in VALID_FORMATS:
         if (file.filename)[-len(valid_format):] == valid_format:
             newFile = FileContents(name=file.filename[:-len(valid_format)-1], data=file.read())
             valid = 1
+            original_format = valid_format
             break
     if valid == 0:
         return "Error: Wrong Format."
 
-
-
+    
     #TODO: Implement convert logic
     newFile.data_pdf = newFile.data
-    newFile.data_png = newFile.data
-    newFile.data_docx = newFile.data
+    #newFile.data_png = newFile.data
+    #newFile.data_docx = newFile.data
+
+    #Need to upload newFile.data to the folder TMP
+    
+
     #------------convert starts here-----------
 
-    # pdf to docx  
+    if original_format == "pdf":
+        
 
-    # docx to pdf
+        outputDir = "tmp/"
+        input_path = "tmp/" + newFile.name + ".pdf"
+        pages = convert_from_path(input_path, 500)
+        img = pages[0]
 
-    # png to pdf
-    #image = Image.open(r'newFile.data_png')
-    #image1 = image.convert('RGB')
-    #image1.save(r'/download/'+ str(newFile.id))
+        # Create a buffer to hold the bytes
+        buf = BytesIO()
 
-    #--------------------------------------------
+        # Save the image as jpeg to the buffer
+        img.save(buf, 'jpeg')
+
+        # Rewind the buffer's file pointer
+        buf.seek(0)
+
+        # Read the bytes from the buffer
+        image_bytes = buf.read()
+
+        # Close the buffer
+        buf.close()
+
+        #Upload file to DB
+        newFile.data_png = image_bytes
+        
+        
+       
+
+  
+
 
     db.session.add(newFile)
     db.session.commit()
-
     return redirect('/download/' + str(newFile.id))
 
 
