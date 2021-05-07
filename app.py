@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, flash, redirect, send_file, url_for, session
+from flask import Flask, request, render_template, flash, redirect, send_file, url_for, session, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
 import templates
 #from app.forms import LoginForm
@@ -10,14 +10,16 @@ import img2pdf
 from PIL import Image
 import os
 import sys
+import io
 # pdf to docx 
-from pdf2docx import Converter
+
 
 #Used to PATH formatting
 
 from pdf2image import convert_from_path
 import glob
-
+from pdf2docx import Converter
+from docx import Document
 
 app = Flask(__name__)
 
@@ -95,8 +97,9 @@ def about():
 def upload():
     file = request.files['inputFile']
     file.save(os.path.join(app.config['UPLOAD_FOLDER'], (file.filename)))
+    
     #Checks if the file format is acceptabe
-    VALID_FORMATS = {"pdf", "PNG", "docx", "jpg"}
+    VALID_FORMATS = {"pdf"} #, "PNG", "docx", "jpg"}
     valid = 0
     for valid_format in VALID_FORMATS:
         if (file.filename)[-len(valid_format):] == valid_format:
@@ -105,10 +108,11 @@ def upload():
             original_format = valid_format
             break
     if valid == 0:
-        return "Error: Wrong Format."
+        return "Error: Wrong Format. Please upload a PDF file."
 
-    
     #TODO: Implement convert logic
+    
+
     newFile.data_pdf = newFile.data
     #newFile.data_png = newFile.data
     #newFile.data_docx = newFile.data
@@ -120,7 +124,7 @@ def upload():
 
     if original_format == "pdf":
         
-
+        #-----PDF TO JPG-----
         outputDir = "tmp/"
         input_path = "tmp/" + newFile.name + ".pdf"
         pages = convert_from_path(input_path, 500)
@@ -144,11 +148,26 @@ def upload():
         #Upload file to DB
         newFile.data_png = image_bytes
         
+        #-----PDF TO DOCX-----
+        
+
+        pdf_file = 'tmp/' + newFile.name + ".pdf"
+        docx_file = 'tmp/' + newFile.name + ".docx"
+
+        # convert pdf to docx
+        cv = Converter(pdf_file)
+        cv.convert(docx_file, start=0, end=None)
+        cv.close()
+        newFile.data_docx = open("tmp/" + newFile.name + ".docx", 'rb').read()
+        newFile.data_pdf = open("tmp/" + newFile.name + ".pdf", 'rb').read()
         
        
 
   
-
+    #files = glob.glob('tmp')
+    #newFile.data_pdf = files[0]
+    #for f in files:
+        #os.remove(f)
 
     db.session.add(newFile)
     db.session.commit()
@@ -185,6 +204,8 @@ def download_file(file_type, file_id):
         format_data = file_data.data_png
     elif file_type == "docx":
         format_data = file_data.data_png
+        return send_from_directory(app.config['UPLOAD_FOLDER'], filename=file_data.name + ".docx", as_attachment=True)
+
 
     converted_filename = file_data.name + "." + file_type
 
