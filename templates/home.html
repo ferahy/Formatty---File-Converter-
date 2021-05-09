@@ -81,6 +81,9 @@
       margin-top: 10px;
       margin-left: 100px;
       margin-right: 150%;
+      box-shadow: 0 0 10px rgb(255, 153, 0);
+      border:1px solid rgb(238, 183, 121);
+      
     }
 
     input {
@@ -88,14 +91,20 @@
       margin: 5px;
     }
     button{
-      background-color: #ec8a0a;
-      color: white;
-      padding: 5px 10px;
-      text-align: center;
-      text-decoration: none;
-      display: inline-block;
-      font-size: 16px;
-      margin-left: 90px;
+      box-shadow: 0px 0px 0px 2px #ff9900;
+	    background:linear-gradient(to bottom, #ebe374 5%, #da771a 100%);
+	    background-color:#fde405;
+	    border-radius:10px;
+	    border:1px solid #f1e207;
+	    display:inline-block;
+	    cursor:pointer;
+	    color:#ffffff;
+	    font-family:Arial;
+	    font-size:19px;
+	    padding: 9px 17px;
+	    text-decoration:none;
+	    text-shadow:0px 1px 0px #656628;
+      margin-left: 80px;
     }
 
   </style>
@@ -123,7 +132,7 @@
         <form action="/upload" method="POST" enctype="multipart/form-data" >
 
           <fieldset>
-            <input type="file" name="inputFile" /><br>
+            <input type="file" name="inputFile"/><br>
             <button type="submit"> Submit </button>
           </fieldset>
 
