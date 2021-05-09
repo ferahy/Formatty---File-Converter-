@@ -9,7 +9,7 @@
  <li><a href="/">Home</a></li>
  <li><a href="/login">Login</a></li>
  <li><a href="/download">Download</a></li>
-  <li style="float:right"><a class="active" href="/about">About</a></li>
+ <li style="float:right"><a class="active" href="/about">About</a></li>
 </ul>
 
 <style>
@@ -20,10 +20,12 @@
     text-align: center;
   }
   p{
-    color:orange;
+    color:rgb(0, 0, 0);
     display: flex;
     justify-content: center;
     text-align: center;
+    font-size:19px;
+    font-weight: bold;
 
   }
   li{
@@ -60,21 +62,35 @@
     text-align: center;
 
   }
-  {
+  button {
+    box-shadow: 0px 0px 0px 2px #ff9900;
+	  background:linear-gradient(to bottom, #ebe374 5%, #da771a 100%);
+	  background-color:#fde405;
+	  border-radius:10px;
+	  border:1px solid #f1e207;
+	  display:inline-block;
+	  cursor:pointer;
+	  color:#ffffff;
+	  font-family:Arial;
+	  font-size:19px;
+	  padding: 4px 16px;
+	  text-decoration:none;
+	  text-shadow:0px 1px 0px #656628;
+    
+    
+    }
+  
   }
 </style>
 
-
-
-
 <body>
 
-
- Enter File ID:
+<br><br>
+ <p> File ID: </p>
 
 <form style="text-align:center"action="/download1" method="POST">
   <input type="text" name="input_id" />
-  <input type="submit" />
+  <button type="submit">  Submit </button>
 </form>
 
 
