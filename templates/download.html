@@ -9,7 +9,7 @@
  <li><a href="/">Home</a></li>
  <li><a href="/login">Login</a></li>
  <li><a href="/download">Download</a></li>
-  <li style="float:right"><a class="active" href="/about">About</a></li>
+ <li style="float:right"><a class="active" href="/about">About</a></li>
 </ul>
 
 <style>
@@ -19,13 +19,7 @@
     justify-content: center;
     text-align: center;
   }
-  p{
-    color:orange;
-    display: flex;
-    justify-content: center;
-    text-align: center;
-
-  }
+  
   li{
     float: left;
   }
@@ -59,37 +53,77 @@
     background-size: 100% 100%;
   }
   table{
-    width: 50%;
+    width: 80%;
   }
-  th{
-    border-bottom-style: dashed;
-  }
-  td {
+ 
+  #button1, #button2, #button3 {
+    box-shadow: 0px 0px 0px 2px #ff9900;
+	  background:linear-gradient(to bottom, #ebe374 5%, #da771a 100%);
+	  background-color:#fde405;
+	  border-radius:10px;
+	  border:1px solid #f1e207;
+	  display:inline-block;
+	  cursor:pointer;
+	  color:#ffffff;
+	  font-family:Arial;
+	  font-size:19px;
+	  padding:12px 37px;
+	  text-decoration:none;
+	  text-shadow:0px 1px 0px #656628;
+    
+    margin-left: 310px;
+    
+    }
+    #container{
     text-align: center;
-    border-right-style: dashed;
-    border-bottom-style: dashed;
-  }
+    }
+
+    form{
+      display:inline-block;
+    }
+    #p1{
+      color:black;
+      justify-content: center;
+      text-align: center;
+      font-family:"Trebuchet MS", Verdana, sans-serif;
+      font-size: 30px;
+      
+    }
+    #p2{
+      color:black;
+      justify-content: center;
+      text-align: center;
+      font: italic normal bold normal 3em/1.5 Helvetica, Arial, sans-serif;
+      font-size: 20px;
+      text-shadow:0px 2px 0px #ff7b00;
+    }
+}
+
 </style>
+<header>
+  <p id = "p1"> Download / Share your files </p>
+</header>
 
 <table>
-<tr>
-  <th>File Name</th>
-  <th>PDF</th>
-  <th>ID</th>
-  <th>PNG</th>
-  <th>Doc</th>
-  <th>Link</th>
-</tr>
-<tr>
-  <td>{{name}}</td>
-  <td>{{file_id}}</td>
-  <td><a href="/download/pdf/{{file_id}}">PDF</a></li></td>
-  <td><a href="/download/png/{{file_id}}">PNG</a></td>
-  <td><a href="/download/docx/{{file_id}}">DOC</a></td>
-  <td>http://localhost:5000/download/{{file_id}}</a>
 
-</tr>
-
+  <header>
+    
+    <p id = "p2"> File Name: {{name}} </p>
+    <p id = "p2"> File ID: {{file_id}}</p>
+    <p id = "p2"> Link to share: http://localhost:5000/download/{{file_id}} </p>
+    
+  </header>
+    
+  
+  <form style="text-align:center" action="/download/pdf/{{file_id}}">
+    <button type="submit" id="button1">  Download PDF </button>
+  </form> 
+  <form style="text-align:center" action="/download/jpeg/{{file_id}}">
+    <button type="submit" id="button2">  Download JPEG </button>
+  </form>
+  <form style="text-align:center" action="/download/docx/{{file_id}}">
+    <button type="submit" id="button3">  Download DOCX </button>
+  </form>
 </table>
 
 
