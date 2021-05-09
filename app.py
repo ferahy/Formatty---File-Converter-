@@ -6,11 +6,11 @@ from io import BytesIO
 # docx to pdf
 from docx2pdf import convert
 # png to pdf 
-import img2pdf
+#import img2pdf
 from PIL import Image
 import os
 import sys
-import io
+#import io
 # pdf to docx 
 
 
@@ -200,7 +200,7 @@ def download_file(file_type, file_id):
 
     if file_type == "pdf":
         format_data = file_data.data_pdf
-    elif file_type == "png":
+    elif file_type == "jpeg":
         format_data = file_data.data_png
     elif file_type == "docx":
         format_data = file_data.data_png
