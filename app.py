@@ -82,7 +82,7 @@ def register():
         try:
             db.session.add(User(username=request.form['username'], password=request.form['password']))
             db.session.commit()
-            return render_template('home.html')
+            return redirect("/")
         except:
             return render_template('login.html', message="User Already Exists")
     else:
