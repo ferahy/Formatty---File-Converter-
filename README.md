@@ -22,7 +22,7 @@ This page will help with the install.
 https://stackoverflow.com/questions/18381713/how-to-install-poppler-on-windows
 If the app will not run it is almost certainly a problem with the poppler install!
 
-After installation, you must enter the virtual enrionment.
+After installation, you must enter the virtual environment.
 
   To install the needed libaries on windows:
   py -m pip install --user virtualenv
