@@ -15,6 +15,7 @@ Ferah Yilmaz, Matthew Dalby, David Devore
 File converter will provide an easy way to upload any files that can be easily shared and allow it
 to be downloaded in any format.
 
+▶️ ***Instructions***
 
 To run this project you must first install Poppler and set the correct path variables.
 This page will help with the install.
